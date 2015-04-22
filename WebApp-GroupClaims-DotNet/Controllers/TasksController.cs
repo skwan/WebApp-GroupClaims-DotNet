@@ -73,7 +73,11 @@ namespace WebAppGroupClaimsDotNet.Controllers
         public ActionResult Share(string id)
         {
             // Values Needed for the People Picker
-            ViewData["tenant"] = ConfigHelper.Tenant;
+
+            // MULTITENANT - Use the user's tenant instead of the app's tenant
+            // ViewData["tenant"] = ConfigHelper.Tenant;
+            ViewData["tenant"] = ClaimsPrincipal.Current.FindFirst(Globals.TenantIdClaimType).Value;
+
             ViewData["token"] = GraphHelper.AcquireToken(ClaimsPrincipal.Current.FindFirst(Globals.ObjectIdClaimType).Value);
 
             // Get the task details

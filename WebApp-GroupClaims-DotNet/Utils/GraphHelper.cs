@@ -8,6 +8,9 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
+// MULTITENANT
+using System.Globalization;
+
 namespace WebAppGroupClaimsDotNet.Utils
 {
     class GraphHelper
@@ -15,7 +18,14 @@ namespace WebAppGroupClaimsDotNet.Utils
         public static string AcquireToken(string userObjectId)
         {
             ClientCredential cred = new ClientCredential(ConfigHelper.ClientId, ConfigHelper.AppKey);
-            AuthenticationContext authContext = new AuthenticationContext(ConfigHelper.Authority, new TokenDbCache(userObjectId));
+
+            // MULTITENANT - Since I've set Tenant=common, we can't use the regular Authority here, we need the user's tenant
+            // AuthenticationContext authContext = new AuthenticationContext(ConfigHelper.Authority, new TokenDbCache(userObjectId));
+            string userAuthority = String.Format(CultureInfo.InvariantCulture,
+                ConfigHelper.AadInstance,
+                ClaimsPrincipal.Current.FindFirst(Globals.TenantIdClaimType).Value);
+            AuthenticationContext authContext = new AuthenticationContext(userAuthority, new TokenDbCache(userObjectId));
+
             AuthenticationResult result = authContext.AcquireTokenSilent(ConfigHelper.GraphResourceId, cred, new UserIdentifier(userObjectId, UserIdentifierType.UniqueId));
             return result.AccessToken;
         }
