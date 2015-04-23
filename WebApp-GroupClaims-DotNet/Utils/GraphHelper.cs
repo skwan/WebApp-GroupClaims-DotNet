@@ -45,7 +45,11 @@ namespace WebAppGroupClaimsDotNet.Utils
         public async static Task GetDirectoryObjects(List<string> objectIds, List<Group> groups, List<DirectoryRole> roles, List<User> users)
         {
             string userObjectId = ClaimsPrincipal.Current.FindFirst(Globals.ObjectIdClaimType).Value;
-            ActiveDirectoryClient graphClient = new ActiveDirectoryClient(new Uri(ConfigHelper.GraphServiceRoot), async () => { return GraphHelper.AcquireToken(userObjectId); });
+
+            // MULTITENANT - need to formulate GraphServiceRoot from user's tenant instead of app's tenant
+            Uri graphServiceRoot = new Uri(ConfigHelper.GraphResourceId + "/" + ClaimsPrincipal.Current.FindFirst(Globals.TenantIdClaimType).Value);
+
+            ActiveDirectoryClient graphClient = new ActiveDirectoryClient(graphServiceRoot, async () => { return GraphHelper.AcquireToken(userObjectId); });
 
             int batchCount = 0;
             List<Task<IBatchElementResult[]>> requests = new List<Task<IBatchElementResult[]>>();
