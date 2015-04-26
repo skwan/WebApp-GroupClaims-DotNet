@@ -58,6 +58,10 @@ namespace WebAppGroupClaimsDotNet
                             UrlHelper url = new UrlHelper(HttpContext.Current.Request.RequestContext);
                             if (context.Request.Uri.AbsolutePath == url.Action("SignUp", "Account"))
                                 context.ProtocolMessage.SetParameter("prompt", "admin_consent");
+
+                            // MULTITENANT - to allow for multiple redirect URLs in the app registration, specify redirect URL in request
+                            context.ProtocolMessage.RedirectUri = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Path);
+
                             return Task.FromResult(0);
                         },
 
