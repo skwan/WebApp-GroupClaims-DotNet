@@ -59,6 +59,10 @@ namespace WebAppGroupClaimsDotNet
                             if (context.Request.Uri.AbsolutePath == url.Action("SignUp", "Account"))
                                 context.ProtocolMessage.SetParameter("prompt", "admin_consent");
 
+                            // MULTITENANT - if this is a signout, override the post signout redirect URI, to make this work easier when deployed to cloud
+                            if (context.Request.Uri.AbsolutePath == url.Action("SignOut", "Account"))
+                                context.ProtocolMessage.PostLogoutRedirectUri = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority);
+
                             // MULTITENANT - to allow for multiple redirect URLs in the app registration, specify redirect URL in request
                             context.ProtocolMessage.RedirectUri = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Path);
 
