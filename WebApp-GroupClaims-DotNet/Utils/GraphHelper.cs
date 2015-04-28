@@ -26,7 +26,11 @@ namespace WebAppGroupClaimsDotNet.Utils
                 ClaimsPrincipal.Current.FindFirst(Globals.TenantIdClaimType).Value);
             AuthenticationContext authContext = new AuthenticationContext(userAuthority, new TokenDbCache(userObjectId));
 
-            AuthenticationResult result = authContext.AcquireTokenSilent(ConfigHelper.GraphResourceId, cred, new UserIdentifier(userObjectId, UserIdentifierType.UniqueId));
+            AuthenticationResult result = authContext.AcquireTokenSilent(
+                ConfigHelper.GraphResourceId, 
+                cred, 
+                new UserIdentifier(userObjectId, UserIdentifierType.UniqueId)
+                );
             return result.AccessToken;
         }
 

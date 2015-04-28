@@ -11,6 +11,10 @@ using System.Threading.Tasks;
 using WebAppGroupClaimsDotNet.DAL;
 using WebAppGroupClaimsDotNet.Utils;
 
+// MULTITENANT
+using Microsoft.IdentityModel.Clients.ActiveDirectory;
+using System.Globalization;
+
 
 namespace WebAppGroupClaimsDotNet.Controllers
 {
@@ -77,7 +81,6 @@ namespace WebAppGroupClaimsDotNet.Controllers
             // MULTITENANT - Use the user's tenant instead of the app's tenant
             // ViewData["tenant"] = ConfigHelper.Tenant;
             ViewData["tenant"] = ClaimsPrincipal.Current.FindFirst(Globals.TenantIdClaimType).Value;
-
             ViewData["token"] = GraphHelper.AcquireToken(ClaimsPrincipal.Current.FindFirst(Globals.ObjectIdClaimType).Value);
 
             // Get the task details
