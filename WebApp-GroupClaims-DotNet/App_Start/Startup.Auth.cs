@@ -55,9 +55,12 @@ namespace WebAppGroupClaimsDotNet
                         RedirectToIdentityProvider = context =>
                         {
                             // MULTITENANT - if the user has pressed the sign up button, add the admin_consent parameter
-                            UrlHelper url = new UrlHelper(HttpContext.Current.Request.RequestContext);
-                            if (context.Request.Uri.AbsolutePath == url.Action("SignUp", "Account"))
-                                context.ProtocolMessage.SetParameter("prompt", "admin_consent");
+                            //
+                            // UPDATE - try new permissions that don't require admin cadmin_consent, comment out this parameter
+                            //
+                            //UrlHelper url = new UrlHelper(HttpContext.Current.Request.RequestContext);
+                            //if (context.Request.Uri.AbsolutePath == url.Action("SignUp", "Account"))
+                            //    context.ProtocolMessage.SetParameter("prompt", "admin_consent");
 
                             // MULTITENANT
                             //
