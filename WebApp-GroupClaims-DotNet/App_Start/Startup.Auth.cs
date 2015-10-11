@@ -58,7 +58,7 @@ namespace WebAppGroupClaimsDotNet
                             //
                             // UPDATE - try new permissions that don't require admin cadmin_consent, comment out this parameter
                             //
-                            //UrlHelper url = new UrlHelper(HttpContext.Current.Request.RequestContext);
+                            UrlHelper url = new UrlHelper(HttpContext.Current.Request.RequestContext);
                             //if (context.Request.Uri.AbsolutePath == url.Action("SignUp", "Account"))
                             //    context.ProtocolMessage.SetParameter("prompt", "admin_consent");
 
