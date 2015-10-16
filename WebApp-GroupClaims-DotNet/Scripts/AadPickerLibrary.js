@@ -125,7 +125,7 @@
 
             var userDeffered = new $.Deferred().resolve({ value: [] }, "success");
             // UsersOnly
-            // var groupDeffered = new $.Deferred().resolve({ value: [] }, "success");
+            var groupDeffered = new $.Deferred().resolve({ value: [] }, "success");
 
             if ((inputValue == lastDisplayed && userSkipToken) || inputValue != lastDisplayed)
                 userDeffered = SendQuery(userQuery);
@@ -135,13 +135,12 @@
 
             var recordResults = function () {
                 // UsersOnly
-                // return function (userQ, groupQ) {
-                return function (userQ) {
+                return function (userQ, groupQ) {
 
                     // UsersOnly
-                    // if (userQ[1] == "success" && groupQ[1] == "success"
-                    //     && userQ[0].error == undefined && groupQ[0].error == undefined) {
-                    if (userQ[1] == "success" && userQ[0].error == undefined) {
+                    if (userQ[1] == "success" && groupQ[1] == "success"
+                        && userQ[0].error == undefined && groupQ[0].error == undefined) {
+                    // if (userQ[1] == "success" && userQ[0].error == undefined) {
 
                         // UsersOnly
                         // var usersAndGroups = userQ[0].value.concat(groupQ[0].value);
@@ -204,8 +203,7 @@
             };
 
             // UsersOnly
-            // $.when(userDeffered, groupDeffered)
-            $.when(userDeffered)
+            $.when(userDeffered, groupDeffered)
                 .always(recordResults());
         };
 
