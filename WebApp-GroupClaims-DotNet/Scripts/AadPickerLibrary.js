@@ -51,9 +51,9 @@
                 url += "&$filter=" +
                 "startswith(displayName,'" + inputValue +
                 "') or startswith(givenName,'" + inputValue +
-                "') or startswith(surname,'" + inputValue +
+                "') or startswith(surname,'" + inputValue + "')";
             //     "') or startswith(userPrincipalName,'" + inputValue +
-                "') or startswith(mail,'" + inputValue + "')";
+            //    "') or startswith(mail,'" + inputValue + "')";
             //     "') or startswith(mailNickname,'" + inputValue +
             //     "') or startswith(jobTitle,'" + inputValue +
             //     "') or startswith(department,'" + inputValue +
