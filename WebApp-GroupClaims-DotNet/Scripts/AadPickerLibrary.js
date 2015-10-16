@@ -121,7 +121,9 @@
             //     groupDeffered = SendQuery(groupQuery);
 
             var recordResults = function () {
-                return function (userQ, groupQ) {
+                // UsersOnly
+                // return function (userQ, groupQ) {
+                return function (userQ) {
 
                     // UsersOnly
                     // if (userQ[1] == "success" && groupQ[1] == "success"
