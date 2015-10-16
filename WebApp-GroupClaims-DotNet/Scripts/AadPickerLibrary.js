@@ -135,7 +135,8 @@
 
             var recordResults = function () {
                 // UsersOnly
-                return function (userQ, groupQ) {
+                // return function (userQ, groupQ) {
+                return function (userQ) {
 
                     // UsersOnly
                     // if (userQ[1] == "success" && groupQ[1] == "success"
