@@ -34,17 +34,30 @@
             var url = graphLoc + '/' + tenant + "/users?api-version="
                 + apiVersion + "&$top=" + resultsPerPage;
 
+            // UsersOnly
+            // if (inputValue.length > 0) {
+            //     url += "&$filter=" +
+            //     "startswith(displayName,'" + inputValue +
+            //     "') or startswith(givenName,'" + inputValue +
+            //     "') or startswith(surname,'" + inputValue +
+            //     "') or startswith(userPrincipalName,'" + inputValue +
+            //     "') or startswith(mail,'" + inputValue +
+            //     "') or startswith(mailNickname,'" + inputValue +
+            //     "') or startswith(jobTitle,'" + inputValue +
+            //     "') or startswith(department,'" + inputValue +
+            //     "') or startswith(city,'" + inputValue + "')";
+            // }
             if (inputValue.length > 0) {
                 url += "&$filter=" +
                 "startswith(displayName,'" + inputValue +
                 "') or startswith(givenName,'" + inputValue +
                 "') or startswith(surname,'" + inputValue +
-                "') or startswith(userPrincipalName,'" + inputValue +
-                "') or startswith(mail,'" + inputValue +
-                "') or startswith(mailNickname,'" + inputValue +
-                "') or startswith(jobTitle,'" + inputValue +
-                "') or startswith(department,'" + inputValue +
-                "') or startswith(city,'" + inputValue + "')";
+            //     "') or startswith(userPrincipalName,'" + inputValue +
+                "') or startswith(mail,'" + inputValue + "')";
+            //     "') or startswith(mailNickname,'" + inputValue +
+            //     "') or startswith(jobTitle,'" + inputValue +
+            //     "') or startswith(department,'" + inputValue +
+            //     "') or startswith(city,'" + inputValue + "')";
             }
 
             if (userSkipToken && lastDisplayed != null && inputValue == lastDisplayed)
