@@ -18,7 +18,7 @@
 
         // Constants
         var graphLoc = "https://graph.windows.net";
-        var apiVersion = "1.5";
+        var apiVersion = "1.6";
 
         // UI Labels
         var userLabel = "";
