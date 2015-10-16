@@ -51,9 +51,9 @@
                 url += "&$filter=" +
                 "startswith(displayName,'" + inputValue +
                 "') or startswith(givenName,'" + inputValue +
-                "') or startswith(surname,'" + inputValue + "')";
+                "') or startswith(surname,'" + inputValue +
             //     "') or startswith(userPrincipalName,'" + inputValue +
-            //    "') or startswith(mail,'" + inputValue + "')";
+               "') or startswith(mail,'" + inputValue + "')";
             //     "') or startswith(mailNickname,'" + inputValue +
             //     "') or startswith(jobTitle,'" + inputValue +
             //     "') or startswith(department,'" + inputValue +
@@ -120,11 +120,9 @@
             selected = null;
 
             var userQuery = ConstructUserQuery(inputValue);
-            // UsersOnly
-            // var groupQuery = ConstructGroupQuery(inputValue);
+            var groupQuery = ConstructGroupQuery(inputValue);
 
             var userDeffered = new $.Deferred().resolve({ value: [] }, "success");
-            // UsersOnly
             var groupDeffered = new $.Deferred().resolve({ value: [] }, "success");
 
             if ((inputValue == lastDisplayed && userSkipToken) || inputValue != lastDisplayed)
@@ -134,13 +132,10 @@
             //     groupDeffered = SendQuery(groupQuery);
 
             var recordResults = function () {
-                // UsersOnly
                 return function (userQ, groupQ) {
 
-                    // UsersOnly
                     if (userQ[1] == "success" && groupQ[1] == "success"
                         && userQ[0].error == undefined && groupQ[0].error == undefined) {
-                    // if (userQ[1] == "success" && userQ[0].error == undefined) {
 
                         // UsersOnly
                         // var usersAndGroups = userQ[0].value.concat(groupQ[0].value);
@@ -202,7 +197,6 @@
                 };
             };
 
-            // UsersOnly
             $.when(userDeffered, groupDeffered)
                 .always(recordResults());
         };
