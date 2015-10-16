@@ -98,27 +98,39 @@
 
         function Search(inputValue, callback) {
 
+            //
+            // UsersOnly:  Many changes made to temporarily make the query users only, and drop groups for now.
+            //             Currently groups require Admin consent.  Want this demo to be user consent only.
+            //
+
             lastInput = inputValue;
             selected = null;
 
             var userQuery = ConstructUserQuery(inputValue);
-            var groupQuery = ConstructGroupQuery(inputValue);
+            // UsersOnly
+            // var groupQuery = ConstructGroupQuery(inputValue);
 
             var userDeffered = new $.Deferred().resolve({ value: [] }, "success");
-            var groupDeffered = new $.Deferred().resolve({ value: [] }, "success");
+            // UsersOnly
+            // var groupDeffered = new $.Deferred().resolve({ value: [] }, "success");
 
             if ((inputValue == lastDisplayed && userSkipToken) || inputValue != lastDisplayed)
                 userDeffered = SendQuery(userQuery);
-            if ((inputValue == lastDisplayed && groupSkipToken) || inputValue != lastDisplayed)
-                groupDeffered = SendQuery(groupQuery);
+            // UsersOnly
+            // if ((inputValue == lastDisplayed && groupSkipToken) || inputValue != lastDisplayed)
+            //     groupDeffered = SendQuery(groupQuery);
 
             var recordResults = function () {
                 return function (userQ, groupQ) {
 
-                    if (userQ[1] == "success" && groupQ[1] == "success"
-                        && userQ[0].error == undefined && groupQ[0].error == undefined) {
+                    // UsersOnly
+                    // if (userQ[1] == "success" && groupQ[1] == "success"
+                    //     && userQ[0].error == undefined && groupQ[0].error == undefined) {
+                    if (userQ[1] == "success" && userQ[0].error == undefined) {
 
-                        var usersAndGroups = userQ[0].value.concat(groupQ[0].value);
+                        // UsersOnly
+                        // var usersAndGroups = userQ[0].value.concat(groupQ[0].value);
+                        var usersAndGroups = userQ[0].value;
 
                         if (userQ[0]["odata.nextLink"] != undefined) {
                             userSkipToken = userQ[0]["odata.nextLink"]
@@ -128,14 +140,16 @@
                         else {
                             userSkipToken = null;
                         }
-                        if (groupQ[0]["odata.nextLink"] != undefined) {
-                            groupSkipToken = groupQ[0]["odata.nextLink"]
-                                .substring(groupQ[0]["odata.nextLink"].indexOf("$skiptoken"),
-                                groupQ[0]["odata.nextLink"].length);
-                        }
-                        else {
-                            groupSkipToken = null;
-                        }
+                        
+                        // UsersOnly
+                        // if (groupQ[0]["odata.nextLink"] != undefined) {
+                        //     groupSkipToken = groupQ[0]["odata.nextLink"]
+                        //         .substring(groupQ[0]["odata.nextLink"].indexOf("$skiptoken"),
+                        //         groupQ[0]["odata.nextLink"].length);
+                        // }
+                        // else {
+                        //     groupSkipToken = null;
+                        // }
 
                         if (lastDisplayed == null || inputValue != lastDisplayed) {
                             currentResults = [];
@@ -174,7 +188,9 @@
                 };
             };
 
-            $.when(userDeffered, groupDeffered)
+            // UsersOnly
+            // $.when(userDeffered, groupDeffered)
+            $.when(userDeffered)
                 .always(recordResults());
         };
 
